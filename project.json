@@ -1,0 +1,9 @@
+{
+  "engine": "cocos2d-html5",
+  "packages": "packages",
+  "version": "2.3.3",
+  "name": "balls",
+  "uuid": "fdc6a967-1e8f-4832-ae79-8ca021d19fda",
+  "id": "c7be2cf3-ad67-48e8-972f-f25049d7677c",
+  "isNew": false
+}
