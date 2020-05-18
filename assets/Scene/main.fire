@@ -180,7 +180,7 @@
       "array": [
         0,
         0,
-        0,
+        426.16752374525225,
         0,
         0,
         0,
@@ -607,10 +607,12 @@
     "head": {
       "__id__": 10
     },
-    "power": 1,
+    "firePower": 1,
     "ballPrefab": {
       "__uuid__": "ff93b221-a47b-4b11-ae80-10e26117e7fd"
     },
+    "ballSpeed": 1,
+    "shootSpeed": 5,
     "_id": "f2k4UpA4tCy7xFAukZYQrf"
   },
   {
@@ -658,6 +660,9 @@
     "cannonScript": null,
     "planePrefab": {
       "__uuid__": "cd64b6d4-3946-4ff6-be08-1891ab59bda4"
+    },
+    "cubePrefab": {
+      "__uuid__": "51c75dc7-a4c5-4045-acbc-333ef92af0fd"
     },
     "planeSpeed": 3,
     "planeInterval": 500,

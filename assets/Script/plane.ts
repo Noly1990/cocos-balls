@@ -36,12 +36,13 @@ export default class PlaneClass extends cc.Component {
 
 
     onCollisionEnter(other: cc.Collider, self) {
+        if (!this.alive) return
         const ballScript: BallClass = other.node.getComponent("ball");
         const { power } = ballScript;
-        if (this.alive) {
-            this.life = this.life - power;
-            ballScript.removeSelf();
-        }
+
+        this.life = this.life - power;
+        ballScript.removeSelf();
+
 
         if (this.life === 0) {
             this.alive = false;

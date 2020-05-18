@@ -7,6 +7,7 @@
 
 import CannonClass from "./cannon";
 import BallClass from "./ball";
+import CubeClass from "./cube";
 
 const { ccclass, property } = cc._decorator;
 
@@ -29,6 +30,11 @@ export default class NewClass extends cc.Component {
     planePrefab: cc.Prefab = null;
 
 
+    @property(cc.Prefab)
+    cubePrefab: cc.Prefab = null;
+
+
+
     @property
     planeSpeed: number = 3;
 
@@ -49,6 +55,16 @@ export default class NewClass extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+
+
+        this.registerCannon();
+
+        // this.planeCreator();
+        this.cubeCreator()
+
+    }
+
+    registerCannon() {
         this.cannonScript = this.cannon.getComponent("cannon");
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (e: cc.Event.EventTouch) => {
             let loc = e.getLocation();
@@ -71,6 +87,30 @@ export default class NewClass extends cc.Component {
             this.cannonScript.rotate(-deg);
         })
 
+    }
+
+
+    cubeCreator() {
+        setInterval(() => {
+            this.planeIndex++;
+            const { width, height } = this.node;
+            const { planeSpeed, planeIndex } = this;
+           
+            this.createCube(Math.floor(Math.random() * width), height, planeSpeed);
+
+        }, 1000)
+    }
+
+
+    createCube(x: number, y: number, speed: number) {
+        const cube = cc.instantiate(this.cubePrefab);
+        this.node.addChild(cube);
+        cube.setPosition(x, y)
+        const cubeScript: CubeClass = cube.getComponent("plane");
+        cubeScript.speed = speed;
+    }
+
+    planeCreator() {
 
         setInterval(() => {
             if (this.planeSpeed < 20) {
@@ -80,7 +120,6 @@ export default class NewClass extends cc.Component {
                 this.planeInterval -= 20;
             }
         }, 5000);
-
         setInterval(() => {
             this.planeIndex++;
             const { width, height } = this.node;
@@ -91,7 +130,6 @@ export default class NewClass extends cc.Component {
                 this.createPlane(Math.floor(Math.random() * width), height, planeSpeed);
             }
         }, 300)
-
     }
 
     createPlane(x: number, y: number, speed: number) {
@@ -101,6 +139,8 @@ export default class NewClass extends cc.Component {
         const planeScript: BallClass = plane.getComponent("plane");
         planeScript.speed = speed;
     }
+
+
 
     create3Plane(x, y, speed) {
         for (let i = 0; i < 3; i++) {

@@ -50,6 +50,7 @@ export default class CannonClass extends cc.Component {
 
     onLoad() {
         this.ballSpeed = 3;
+        this.shootSpeed = 10;
         this.fire()
     }
 

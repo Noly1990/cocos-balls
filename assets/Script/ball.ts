@@ -48,7 +48,7 @@ export default class BallClass extends cc.Component {
         this.top = this.node.parent.height - this.node.width / 2;
         this.node.group = "ball";
 
-        this.needReflect = false;
+        this.needReflect = true;
     }
 
     removeSelf() {
