@@ -24,47 +24,61 @@ export default class NewClass extends cc.Component {
     @property
     opacitySpeed: number = 0;
 
+
+    @property
+    type: string = "back";
+
     getRandomRange(x, y) {
-        return Math.floor(Math.random() * y )+ x;
+        return Math.floor(Math.random() * y) + x;
     }
 
-    getRandomXY() {
+    getRandomX() {
         return 3 - 6 * Math.random();
     }
 
+    getRandomY() {
+        return 3 - 9 * Math.random()
+    }
+
     onLoad() {
-        this.node.color = new cc.Color(this.getRandomRange(0, 255), this.getRandomRange(0, 255), this.getRandomRange(0, 255));
-        const randomW = this.getRandomRange(5, 12);
-        this.node.width = randomW;
-        this.node.height = randomW;
         
-        this.speedX = this.getRandomXY();
-        this.speedY = this.getRandomXY();
-        this.opacitySpeed = 5;
-        this.rotateSpeed = this.getRandomRange(1, 20);
     }
 
-    fadeOut() {
+    init(type: string) {
+        this.type = type;
+        this.node.color = new cc.Color(this.getRandomRange(0, 255), this.getRandomRange(0, 255), this.getRandomRange(0, 255));
 
+        if (type === 'back') {
+            const randomW = this.getRandomRange(10, 22);
+            this.node.width = randomW;
+            this.node.height = randomW;
+            this.opacitySpeed = 2;
+            this.speedX = this.getRandomX() / 6;
+            this.speedY = 0.2;
+            this.rotateSpeed = 0;
+        } else {
+            const randomW = this.getRandomRange(4, 15);
+            this.node.width = randomW;
+            this.node.height = randomW;
+            this.speedX = this.getRandomX();
+            this.speedY = this.getRandomY();
+            this.opacitySpeed = 5;
+            this.rotateSpeed = this.getRandomRange(-20, 40);
+        }
     }
-
-    rotateOut() {
-
-    }
-
-    start() {
-
-    }
-
 
     removeSelf() {
         if (this.node.parent) {
-            this.node.parent.removeChild(this.node , true);
+            this.node.parent.removeChild(this.node, true);
             this.destroy()
         }
     }
 
     update(dt) {
+        if (this.type === "back" && this.node.width > 0.5) {
+            this.node.width -=0.05;
+            this.node.height -=0.05;
+        }
         this.node.opacity -= this.opacitySpeed;
         this.node.angle += this.rotateSpeed;
 

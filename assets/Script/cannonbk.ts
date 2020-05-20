@@ -106,7 +106,7 @@ export default class NewClass extends cc.Component {
         const cube = cc.instantiate(this.cubePrefab);
         this.node.addChild(cube);
         cube.setPosition(x, y)
-        const cubeScript: CubeClass = cube.getComponent("plane");
+        const cubeScript: CubeClass = cube.getComponent("cube");
         cubeScript.speed = speed;
     }
 

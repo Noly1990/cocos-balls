@@ -33,11 +33,17 @@ export default class CubeClass extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
 
+    getRandomRange(x, y) {
+        return Math.floor(Math.random() * y) + x;
+    }
+
     onLoad() {
         this.life = 5;
         this.speed = 1;
         this.node.group = "cube";
         this.lifeLable.string = this.life.toString();
+        this.node.color = new cc.Color(this.getRandomRange(0, 255), this.getRandomRange(0, 255), this.getRandomRange(0, 255));
+
     }
 
     onCollisionEnter(other: cc.Collider, self) {
@@ -45,7 +51,7 @@ export default class CubeClass extends cc.Component {
         const ballScript: BallClass = other.node.getComponent("ball");
         const { power } = ballScript;
 
-        this.life = this.life - power;
+        this.minusLife(power);
         ballScript.removeSelf();
 
         if (this.life === 0) {
@@ -55,7 +61,11 @@ export default class CubeClass extends cc.Component {
             }
             this.rotateOut()
         }
+    }
 
+    minusLife(v: number) {
+        this.life -= v;
+        this.lifeLable.string = this.life.toString();
     }
 
     fragmentOut() {
@@ -75,6 +85,8 @@ export default class CubeClass extends cc.Component {
         this.createPiece();
         this.createPiece();
         this.createPiece();
+        this.createPiece();
+        this.createPiece();
         this.removeSelf()
     }
 
@@ -84,6 +96,7 @@ export default class CubeClass extends cc.Component {
         p.x = x;
         p.y = y;
         this.node.parent.addChild(p)
+        p.getComponent("piece").init("cube")
     }
 
     removeSelf() {
