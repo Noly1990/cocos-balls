@@ -52,7 +52,13 @@ export default class CubeClass extends cc.Component {
         const { power } = ballScript;
 
         this.minusLife(power);
-        ballScript.removeSelf();
+        // ballScript.removeSelf();
+        console.log(self.world.points.map(v => {
+            return {
+                x: v.x,
+                y: v.y
+            }
+        }))
 
         if (this.life === 0) {
             this.alive = false;
@@ -60,6 +66,9 @@ export default class CubeClass extends cc.Component {
                 this.node.parent.getComponent("cannonbk").addScore(this.score);
             }
             this.rotateOut()
+        } else {
+            //this.lightSelf();
+            this.bigerSelf()
         }
     }
 
@@ -70,6 +79,20 @@ export default class CubeClass extends cc.Component {
 
     fragmentOut() {
 
+    }
+
+    bigerSelf() {
+        this.node.scale = 1.3;
+    }
+
+    lightSelf() {
+        this.node.getComponents(cc.RenderComponent).forEach(renderComponent => {
+            let material: cc.Material = renderComponent.getMaterial(0);
+            material.setProperty("glowColorSize", 0.1);
+            material.setProperty("glowColor", "#ff0000");
+            material.setProperty("glowThreshold", 1);
+            renderComponent.setMaterial(0, material);
+        });
     }
 
     rotateOut() {
@@ -115,6 +138,9 @@ export default class CubeClass extends cc.Component {
         if (y < 0) {
             this.removeSelf();
             return
+        }
+        if (this.node.scale > 1) {
+            this.node.scale -=0.1;
         }
         this.node.setPosition(x, y - this.speed)
     }

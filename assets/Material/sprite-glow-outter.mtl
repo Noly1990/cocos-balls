@@ -1,0 +1,19 @@
+{
+  "__type__": "cc.Material",
+  "_name": "sprite-glow-outter",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "ee33482d-8c88-4132-849b-e1adc3d45031"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_TEXTURE": false,
+        "SHOW_OUTTER_GLOW": true,
+        "USE_ALPHA_TEST": false
+      }
+    }
+  }
+}
